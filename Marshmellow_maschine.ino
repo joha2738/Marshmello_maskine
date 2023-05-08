@@ -10,19 +10,19 @@ int lastButtonState = 0;    // Forrige position af tastetryk
 
 // Define stepper motor connections and steps per revolution:
 #define dirPin     2           //  m0Pin  m1Pin  m2Pin    Step
-#define stepPin    3           //  L   L   L     Full
-#define sleepPin   4           //  H   L   L     1/2
-#define resetPin   5           //  L   H   L     1/4
-#define m2Pin      9           //  H   H   L     1/8
-#define m1Pin      6           //  L   L   H     1/16
-#define m0Pin      7           //  H   L   H     1/32
-#define enablePin  8           //  Disconected = L L L
-#define pause      1
-#define steps      125
-#define buttonPin  17
+#define stepPin    3           //  L      L      L        Full
+#define sleepPin   4           //  H      L      L        1/2
+#define resetPin   5           //  L      H      L        1/4
+#define m2Pin      9           //  H      H      L        1/8
+#define m1Pin      6           //  L      L      H        1/16
+#define m0Pin      7           //  H      L      H        1/32
+#define enablePin  8           //  
+#define pause      1           //  Disconected = L L L
+#define steps      125         // 125 steps passer med 1/4 step hastiged
+#define buttonPin  17          // Bruges til at aktivere mekanismen
+#define buttonPin2 16          // Ikke i brug endnu men lagt ud i skrueterminal
 
 void setup() {
-  // Declare pins as output:
   pinMode(dirPin, OUTPUT);
   pinMode(stepPin, OUTPUT);
   pinMode(sleepPin, OUTPUT);
@@ -37,6 +37,7 @@ void setup() {
   pixels.clear();
   pixels.show();
 
+  // 1/4 steps er meget passende til den roterende skuffe
   digitalWrite(m0Pin, LOW);
   digitalWrite(m1Pin, HIGH);
   digitalWrite(m2Pin, LOW);
@@ -50,7 +51,7 @@ void loop() {
       //Start motor
       digitalWrite(sleepPin, HIGH);
       digitalWrite(resetPin, HIGH);
-      //Sæt retning højreom
+      //Sæt retning: skub ud
       digitalWrite(dirPin, LOW);
       //Tænd LED Grøn
       pixels.setPixelColor(0, pixels.Color(0, 5, 0));
@@ -66,7 +67,7 @@ void loop() {
       delay(200);
 
 
-      //Sæt retning venstreom
+      //Sæt retning: træk ind
       digitalWrite(dirPin, HIGH);
       //Tænd LED Blå
       pixels.setPixelColor(0, pixels.Color(0, 0, 5));
@@ -80,7 +81,7 @@ void loop() {
         delayMicroseconds(500);
       }
 
-            //Sluk motor
+      //Sluk motor
       digitalWrite(sleepPin, LOW);
       digitalWrite(resetPin, LOW);
     }
