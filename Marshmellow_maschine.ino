@@ -58,8 +58,8 @@ void setup() {
   pinMode(buttonPin, INPUT_PULLUP);
   pinMode(buttonPin2, INPUT_PULLUP);
 
-  pinMode(sensor, INPUT)
-  pinMode(sensorLED, OUTPUT)
+  pinMode(sensor, INPUT);
+  pinMode(sensorLED, OUTPUT);
 
   pixels.begin();
   pixels.clear();
